@@ -1,0 +1,33 @@
+- name: Crea la directory dell'applicazione
+  ansible.builtin.file:
+    path: "{{ energy_app_dir }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    mode: "0755"
+
+- name: Copia il codice applicativo
+  ansible.posix.synchronize:
+    src: "{{ playbook_dir }}/../../ingestion/"
+    dest: "{{ energy_app_dir }}/ingestion/"
+  notify: restart energy services
+
+- name: Copia il DAG Airflow
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../../dags/energy_entsoe_hourly.py"
+    dest: "{{ energy_dags_dir }}/energy_entsoe_hourly.py"
+    mode: "0644"
+
+- name: Installa le dipendenze Python
+  ansible.builtin.pip:
+    requirements: "{{ energy_app_dir }}/requirements.txt"
+    executable: pip3
+    extra_args: "--break-system-packages"
+
+- name: Scrive il file di ambiente con il token
+  ansible.builtin.template:
+    src: energy-monitor.env.j2
+    dest: /etc/energy-monitor.env
+    owner: root
+    group: "{{ ansible_user }}"
+    mode: "0640"
+  no_log: true

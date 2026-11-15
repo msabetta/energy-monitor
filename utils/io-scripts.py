@@ -52,17 +52,20 @@ def fetch_actual_load(zone: str, start: datetime, end: datetime) -> str:
     resp.raise_for_status()
     return resp.text  # il dato grezzo va salvato così com'è nella raw zone
 
+
 ##example: open_file_for_writing("output/data.txt")  # apre il file per la scrittura, creando eventuali directory mancanti
 def open_file_for_writing(file_path: str):
     """Apre un file per la scrittura, creando eventuali directory mancanti."""
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
     return open(file_path, "w")
 
+
 ##example: write_to_file("output/data.txt", "Contenuto da scrivere")  # scrive il contenuto in un file, creando eventuali directory mancanti
 def write_to_file(file_path: str, content: str) -> None:
     """Scrive il contenuto in un file, creando eventuali directory mancanti."""
     with open_file_for_writing(file_path) as f:
         f.write(content)
+
         
 def get_env_variable(var_name: str) -> str:
     """Restituisce il valore di una variabile d'ambiente, o None se non esiste."""

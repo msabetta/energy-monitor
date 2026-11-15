@@ -1,0 +1,10 @@
+- name: Deploy energy monitor
+  hosts: energy_nodes
+  become: true
+  roles:
+    - energy_monitor
+  handlers:
+    - name: restart energy services
+      ansible.builtin.systemd:
+        name: airflow-scheduler
+        state: restarted

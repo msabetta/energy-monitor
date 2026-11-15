@@ -21,6 +21,8 @@ def write_trusted_load(rows: list[dict], raw_file: str) -> None:
     ]
     incoming = spark.createDataFrame(records)
     incoming.createOrReplaceTempView("incoming_load")
+    incoming.printSchema()
+    incoming.show(5, truncate=False)
 
     spark.sql("""
         MERGE INTO energy.trusted_load AS t

@@ -1,0 +1,5 @@
+energy_app_dir: /opt/energy-monitor
+energy_python: /usr/bin/python3
+energy_dags_dir: /opt/airflow/dags
+# Il token non va qui: si legge da Ansible Vault
+# entsoe_token: "{{ vault_entsoe_token }}"
