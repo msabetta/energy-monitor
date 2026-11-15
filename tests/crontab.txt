@@ -1,0 +1,3 @@
+# crontab -e
+# Ogni ora, minuto 20, con ritardo di 3 ore sulla finestra
+20 * * * * cd /opt/energy-monitor && ENTSOE_TOKEN=... /usr/bin/python3 -m ingestion.job_entsoe_hourly "$(date -u -d '3 hours ago' +\%Y-\%m-\%dT\%H:00:00+00:00)" >> /var/log/energy-monitor.log 2>&1

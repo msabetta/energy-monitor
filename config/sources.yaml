@@ -1,0 +1,68 @@
+# config/sources.yaml
+# Ogni fonte: endpoint, frequenza, formato, licenza, responsabile.
+# Verificare termini d'uso e licenze sui portali prima di un uso commerciale.
+
+sources:
+  entsoe_load:
+    name: ENTSO-E Transparency Platform - carico reale
+    base_url: https://web-api.tp.entsoe.eu/api
+    document_type: A65        # System total load
+    process_type: A16         # Realised
+    auth: securityToken       # letto da env ENTSOE_TOKEN
+    format: XML
+    resolution: PT60M         # da verificare per zona (alcune zone PT15M)
+    update_frequency: "pubblicazione con ritardo di alcune ore"
+    license: "da verificare - termini d'uso ENTSO-E"
+    owner: "da definire"
+    zones:
+      IT_NORD: "10Y1001A1001A73I"
+      # IT_CNOR, IT_CSUD, IT_SUD, IT_SICI, IT_SARD: codici EIC da verificare
+      # nella documentazione ENTSO-E prima di attivarle
+
+  entsoe_generation:
+    name: ENTSO-E - generazione per fonte
+    base_url: https://web-api.tp.entsoe.eu/api
+    document_type: A75        # Actual generation per type
+    process_type: A16
+    auth: securityToken
+    format: XML
+    update_frequency: "pubblicazione con ritardo"
+    license: "da verificare - termini d'uso ENTSO-E"
+    owner: "da definire"
+    status: planned           # non ancora implementata
+
+  gme_prices:
+    name: GME - prezzi PUN e mercati day-ahead/intraday
+    base_url: https://www.mercatoelettrico.org
+    format: CSV               # download manuale o via file pubblici
+    update_frequency: giornaliera
+    license: "da verificare - condizioni di riutilizzo GME"
+    owner: "da definire"
+    status: planned
+
+  terna_open_data:
+    name: Terna - dati di sistema, domanda e produzione
+    base_url: https://www.terna.it
+    format: CSV / XLSX
+    update_frequency: "da verificare"
+    license: "da verificare - licenza open data Terna"
+    owner: "da definire"
+    status: planned
+
+  snam_gas_flows:
+    name: Snam Rete Gas - flussi di trasporto
+    base_url: https://www.snam.it
+    format: "da verificare"
+    update_frequency: "da verificare"
+    license: "da verificare"
+    owner: "da definire"
+    status: planned
+
+  arera_open_data:
+    name: ARERA - tariffe, offerte, indicatori di qualità
+    base_url: https://www.arera.it
+    format: "da verificare"
+    update_frequency: "da verificare"
+    license: "da verificare"
+    owner: "da definire"
+    status: planned
